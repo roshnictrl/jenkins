@@ -1,39 +1,41 @@
 pipeline {
     agent any
 
+    options {
+        timestamps()
+    }
+
     stages {
-
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/your-username/your-node-app.git'
-            }
-        }
-
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm install'
-            }
-        }
 
         stage('Build') {
             steps {
-                sh 'npm run build'
+                echo 'Building the project...'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'npm test'
+                echo 'Running tests...'
             }
         }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying application...'
+            }
+        }
+
     }
 
     post {
         success {
-            echo 'Pipeline executed successfully!'
+            echo 'Pipeline completed successfully!'
         }
         failure {
             echo 'Pipeline failed!'
+        }
+        always {
+            echo 'Pipeline finished.'
         }
     }
 }
